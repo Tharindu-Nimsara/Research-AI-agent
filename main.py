@@ -46,7 +46,9 @@ my_prompt = ChatPromptTemplate.from_messages(
 ).partial(format_instructions=my_parser.get_format_instructions())
 #this format_instruction consist of response template which we created above and now we pass it to the above prompt . 
 
-my_tools = [search_tool, wiki_tool, save_tool]
+my_tools = [search_tool, wiki_tool, save_tool] # These are the tools that we have connected to LLM to make an AI agent
+
+#making an agent by feeding llm, prompt, tools
 my_agent = create_tool_calling_agent(
     llm=my_llm,
     prompt=my_prompt,
@@ -54,7 +56,11 @@ my_agent = create_tool_calling_agent(
 )
 
 agent_executer = AgentExecutor(agent=my_agent, tools=my_tools ,verbose=True)
+
+# Human input
 query = input("What can i help you research? ")
+
+# Running the agent and getting the response
 raw_response = agent_executer.invoke({"query": query})
 
 try:
