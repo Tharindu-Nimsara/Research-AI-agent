@@ -17,9 +17,17 @@ class ResearchResponse(BaseModel):
     sources: list[str]
     tools_used: list[str] 
 
+
 #choosing the llm
+
+#this is anthropic (claude) llm
 my_llm = ChatAnthropic(model="claude-3-5-sonnet-20241022")
+
+# if you want to use gpt model instead of claude all you have to do is input openai api key in .env file and uncomment below code line and also comment above code line
+# my_llm = ChatOpenAI(model="gpt-3.5-turbo")
 my_parser = PydanticOutputParser(pydantic_object=ResearchResponse)
+
+
 
 my_prompt = ChatPromptTemplate.from_messages(
     [
